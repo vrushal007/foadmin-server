@@ -17,7 +17,7 @@ route.get('/cart', async(req,res)=>{
 route.put('/cart',async (req,res)=>{
     try{
         const cart = await Cart.findOne()
-        console.log("cart",cart)
+        // console.log("cart",cart)
         if(!cart){
             const newCart = new Cart({
                 items:req.body.items,
@@ -25,12 +25,12 @@ route.put('/cart',async (req,res)=>{
                 totalQuantity:req.body.totalQuantity
             })
             await newCart.save()
-            console.log("new CART:",newCart)
+            // console.log("new CART:",newCart)
             res.json(newCart).status(201)
             return;
         }else{
             const updatedCart = await Cart.findByIdAndUpdate(cart._id,req.body,{new:true})
-            console.log("updated cart:",updatedCart)
+            // console.log("updated cart:",updatedCart)
             res.json(updatedCart).status(203)
             return;
         }
