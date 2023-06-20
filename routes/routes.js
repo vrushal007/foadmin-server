@@ -9,12 +9,13 @@ route.get('/',(req,res)=>{
 })
 
 route.get('/cart', async(req,res)=>{
-    const cart = await Cart.find()
+    const cart = await Cart.findOne()
     res.json(cart).status(200)
     return;
 })
 
 route.put('/cart',async (req,res)=>{
+    console.log(req.body)
     try{
         const cart = await Cart.findOne()
         // console.log("cart",cart)
@@ -26,12 +27,12 @@ route.put('/cart',async (req,res)=>{
             })
             await newCart.save()
             // console.log("new CART:",newCart)
-            res.json(newCart).status(201)
+            res.json(newCart[0]).status(201)
             return;
         }else{
             const updatedCart = await Cart.findByIdAndUpdate(cart._id,req.body,{new:true})
             // console.log("updated cart:",updatedCart)
-            res.json(updatedCart).status(203)
+            res.json(updatedCart[0]).status(203)
             return;
         }
     }
